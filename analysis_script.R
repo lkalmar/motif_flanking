@@ -2,7 +2,7 @@ library(stringr)
 library(reshape2)
 library(ggplot2)
 library(ggpubr)
-
+library(ggseqlogo)
 
 #########
 ### Masking process (optional, fully masked data table is available to load in)
@@ -326,7 +326,44 @@ for (class in abundant_classes){
 }
 
 #########
-# Amino acid composition difference calculation and visualisation
+### Sequence logo visualisations for abundant classes
+#########
+
+
+for (class in abundant_classes){
+  nterm_only <- 0
+  if (grepl("LIG_PDZ", class) || grepl("LIG_WRPW", class)){
+    nterm_only <- 1
+  }
+  # n-term
+  seqvec <- data[data$up_to_date_class == class, "Flanking_N"]
+  for (i in 1:length(seqvec)){
+    if (nchar(seqvec[i]) < 10){
+      seqvec[i] <- paste0(strrep(" ", 10 - nchar(seqvec[i])), seqvec[i])
+    }
+    seqvec[i] <- str_sub(seqvec[i], nchar(seqvec[i])-9, nchar(seqvec[i]))
+  }
+  p1 <- ggplot() + geom_logo( seqvec, method = "prob" ) + theme_logo() + theme(legend.position = "none") + ggtitle("N-terminal flanking")
+  #cterm
+  p2 <- ggplot() + theme_logo()
+  if (nterm_only == 0){
+    seqvec <- data[data$up_to_date_class == class, "Flanking_C"]
+    for (i in 1:length(seqvec)){
+      if (nchar(seqvec[i]) < 10){
+        seqvec[i] <- paste0(seqvec[i], strrep(" ", 10 - nchar(seqvec[i])))
+      }
+      seqvec[i] <- str_sub(seqvec[i], 1, 10)
+    }
+    p2 <- ggplot() + geom_logo( seqvec, method = "prob" ) + theme_logo() + theme(legend.position = "none") + ggtitle("C-terminal flanking")
+  }
+  comp_plot <- ggarrange(p1, p2, ncol = 2, nrow = 1)
+  final_plot <- annotate_figure(comp_plot,
+                                top = text_grob(class, face = "bold", size = 18))
+  ggsave(paste0("plots/seq_logos/Fig_",class,"_logo.jpg"),final_plot, width = 6, height = 3, units = "in")
+}
+
+#########
+### Amino acid composition difference calculation and visualisation
 #########
 
 volume_order <- c("G","A","S","P","D","C","N","T","E","V","Q","H","M","L","I","K","R","F","Y","W")
