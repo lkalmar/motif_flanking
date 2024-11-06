@@ -1,0 +1,9 @@
+AAindexAC*Description*A*R*N*D*C*Q*E*G*H*I*L*K*M*F*P*S*T*W*Y*V
+KYTJ820101*Hydropathy index (Kyte-Doolittle, 1982)*4*1*1*1*4*1*1*3*1*5*5*1*4*5*2*3*3*3*2*5
+GRAR740103*Volume (Grantham, 1974)*1*4*2*2*2*3*3*1*3*4*4*4*4*4*1*1*2*5*4*3
+ZIMJ680104*Isoelectric point (Zimmerman et al., 1968)*3*5*2*1*2*2*1*3*4*3*3*5*2*2*3*2*2*2*2*2
+CHARGE01*Charge*1*5*1*5*1*1*5*1*3*1*1*5*1*1*1*1*1*1*1*1
+Proline01*Proline*1*1*1*1*1*1*1*1*1*1*1*1*1*1*5*1*1*1*1*1
+Phospho01*Serine / Threonine*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*5*5*1*1*1
+ChargeNEG*Negative charge*1*1*1*5*1*1*5*1*1*1*1*1*1*1*1*1*1*1*1*1
+ChargePos*Positive charge*1*5*1*1*1*1*1*1*3*1*1*5*1*1*1*1*1*1*1*1
